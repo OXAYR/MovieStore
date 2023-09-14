@@ -1,27 +1,119 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHashHistory } from "vue-router";
+import AdminView from "../views/adminviews/AdminView";
+import LoginView from "../views/LoginView.vue";
+import SignUpView from "../views/SignUpView.vue";
+import DashBoardView from "../views/adminviews/DashBoardView.vue";
+import AdminMovieListView from "../views/adminviews/AdminMovieListView.vue";
+import HomeView from "../views/userviews/HomeView.vue";
+import MovieListView from "../views/userviews/MovieListView.vue";
+import EditMovie from "../components/admin/EditMovie.vue";
+import UserAccount from "../components/user/UserAccount.vue";
+import Users from "../components/admin/Users.vue";
+import EditUser from "../components/user/EditUser.vue";
+import CartView from "../views/userviews/CartView.vue";
+import store from "@/store";
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "/admin",
+    name: "admin",
+    component: AdminView,
+    meta: {
+      adminAuth: true,
+      requiresAuth: true,
+      userAuth: false,
+    },
+    children: [
+      {
+        path: "",
+        name: DashBoardView,
+        component: DashBoardView,
+      },
+      {
+        path: "AdminMovieListView",
+        component: AdminMovieListView,
+      },
+      {
+        path: "/edit/:id",
+        component: EditMovie,
+      },
+      {
+        path: "users",
+        component: Users,
+      },
+    ],
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-    }
-  }
-]
+    path: "/home",
+    name: "home",
+    component: HomeView,
+    meta: {
+      adminAuth: false,
+      requiresAuth: true,
+      userAuth: true,
+    },
+    children: [
+      {
+        path: "",
+        name: MovieListView,
+        component: MovieListView,
+      },
+      {
+        path: "cart",
+        component: CartView,
+      },
+      {
+        path: "userAccount",
+        component: UserAccount,
+      },
+      {
+        path: ":userId/updateUser",
+        component: EditUser,
+      },
+    ],
+  },
+  {
+    path: "/",
+    name: "login",
+    component: LoginView,
+  },
+
+  {
+    path: "/signup",
+    name: "SignUp",
+    component: SignUpView,
+  },
+];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
-})
+  routes,
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    const authUser = store.getters["user/getUser"];
+    console.log("in the navigation guards------>", authUser.user.userRole);
+
+    if (!authUser.user || !authUser.token) {
+      next({ name: "login" });
+    } else if (to.meta.adminAuth) {
+      if (authUser.user.userRole.toLowerCase() === "admin") {
+        next();
+      } else {
+        next("/home");
+      }
+    } else if (to.meta.userAuth) {
+      if (authUser.user.userRole.toLowerCase() === "user") {
+        next();
+      } else {
+        console.log("I am in admin");
+        next("/admin");
+      }
+    }
+  } else {
+    next();
+  }
+});
+
+export default router;
