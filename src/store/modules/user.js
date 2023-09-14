@@ -15,7 +15,7 @@ export default {
       return state.user;
     },
     getAllUsers(state) {
-      console.log("In the getter ", state.users);
+      console.log("In the getter of all users", state.users);
       return state.users;
     },
   },
@@ -96,6 +96,7 @@ export default {
 
     async fetchUsers({ commit }) {
       try {
+        console.log("In the fetch users");
         const { data } = await axios.get("/users/all");
         console.log("In the fetch users ", data.data.users);
         commit("SET_USERS", data.data.users);

@@ -21,7 +21,7 @@
             <th class="w-1/3 sm:w-auto">User Role</th>
           </tr>
         </thead>
-        <!-- <tbody>
+        <tbody>
           <tr v-for="user in users" :key="user._id" class="my-2">
             <td class="w-1/3 sm:w-auto px-4 sm:px-3 sm:mx-3">
               {{ user.name }}
@@ -47,7 +47,7 @@
               </div>
             </td>
           </tr>
-        </tbody> -->
+        </tbody>
       </table>
     </div>
   </div>
@@ -59,22 +59,26 @@ import { onMounted, ref, computed } from "vue";
 
 const store = useStore();
 
-const users = ref([]);
 const userBeingEdited = ref(null);
 const editedUserRole = ref(null);
-//const currentPath = ref($route.path);
 const isLoading = ref(false);
-
-users.value = computed(() => store.getters["user/getAllUsers"]);
-console.log(users.value);
 
 const fetchUsers = async () => {
   try {
-    await store.dispatch["user/fetchUsers"];
+    isLoading.value = true;
+    await store.dispatch("user/fetchUsers");
+    isLoading.value = false;
   } catch (error) {
     console.error("Error fetching users:", error);
+    isLoading.value = false;
   }
 };
+
+onMounted(() => {
+  fetchUsers();
+});
+
+const users = store.getters[("user", "user/getAllUsers")];
 
 const updateUserRole = async (user) => {
   try {
@@ -98,8 +102,4 @@ const toggleRoleEdit = (user) => {
   userBeingEdited.value = userBeingEdited.value === user ? null : user;
   editedUserRole.value = user.userRole;
 };
-
-onMounted(() => {
-  fetchUsers();
-});
 </script>

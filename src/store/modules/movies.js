@@ -100,10 +100,9 @@ export default {
       }
     },
 
-    async updateMovie({ commit }, { indx, updateMovie }) {
+    async updateMovie(_, { indx, updateMovie }) {
       try {
         console.log("in the update movie----> ", indx);
-        //commit("UPDATE_MOVIE", { id: indx, data: updateMovie });
         const token = user.state.user.token;
         console.log("token in the update----> ", token);
         const config = {
