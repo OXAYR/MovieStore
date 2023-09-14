@@ -47,14 +47,13 @@ defineProps({
 });
 
 const ticketCount = ref(1);
-
+const emit = defineEmits(["add-ticket"]);
 const addTicket = (obj) => {
   if (ticketCount.value < 0 || ticketCount.value > 5) {
     alert("The ticket count must be between 1-5");
   } else {
     const movie = { tickets: ticketCount.value, ...obj };
     console.log(movie);
-    const emit = defineEmits();
     emit("add-ticket", movie);
   }
 };

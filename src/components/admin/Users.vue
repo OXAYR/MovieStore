@@ -56,13 +56,16 @@
 <script setup>
 import { useStore } from "vuex";
 import { onMounted, ref, computed } from "vue";
+import { useRoute } from "vue-router";
 
 const store = useStore();
-
+const router = useRoute();
 const userBeingEdited = ref(null);
 const editedUserRole = ref(null);
 const isLoading = ref(false);
+const currentPath = ref(router.path);
 
+console.log(currentPath);
 const fetchUsers = async () => {
   try {
     isLoading.value = true;
@@ -74,11 +77,7 @@ const fetchUsers = async () => {
   }
 };
 
-onMounted(() => {
-  fetchUsers();
-});
-
-const users = store.getters[("user", "user/getAllUsers")];
+const users = computed(() => store.getters["user/getAllUsers"]);
 
 const updateUserRole = async (user) => {
   try {
@@ -102,4 +101,8 @@ const toggleRoleEdit = (user) => {
   userBeingEdited.value = userBeingEdited.value === user ? null : user;
   editedUserRole.value = user.userRole;
 };
+
+onMounted(() => {
+  fetchUsers();
+});
 </script>

@@ -35,51 +35,40 @@
         </div>
       </li>
     </ul>
-
-    <div v-if="error" class="p-2 sm:p-4 mt-4 card bg-red-200">
-      <p>{{ error }}</p>
-      <button @click="clearError" class="text-red-800">Dismiss</button>
-    </div>
   </div>
 </template>
 
 <script setup>
 import { useStore } from "vuex";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 
 const store = useStore();
 
-const crt = store.getters["cart/getCart"];
-const error = store.getters["cart/getError"];
+const crt = computed(() => store.getters["cart/getCart"]);
 const price = ref(null);
 
-const getTheCart = store.dispatch("cart/getTheCart");
-const deleteCartEl = store.dispatch("cart/deleteCartEl");
-const clearError = store.dispatch("cart/clearError");
-const updateTicket = store.dispatch("cart/updateTicket");
-
-const incrementTicketCount = (item, val) => {
+const incrementTicketCount = async (item, val) => {
   if (item.ticketCount > 0 && item.ticketCount < 5) {
     item.ticketCount += val;
     console.log("IN the increment tickets----->", item, val);
-    updateTicket(item);
+    await store.dispatch("cart/updateTicket", item);
   } else {
     alert("You can only buy a maximum of five tickets");
   }
 };
 
-const decrementTicketCount = (item, val) => {
+const decrementTicketCount = async (item, val) => {
   if (item.ticketCount > 0 && item.ticketCount <= 5) {
     if (item.ticketCount > 1) {
       item.ticketCount -= val;
       console.log("IN the decrement tickets----->", item, val);
-      updateTicket(item);
+      await store.dispatch("cart/updateTicket", item);
     } else if (item.ticketCount === 1) {
       var answer = confirm(
         "Decrementing this ticket will remove the movie from the cart"
       );
       if (answer) {
-        deleteCartEl(item.movieId);
+        await store.dispatch("cart/deleteCartEl", item.movieId);
       }
     }
   } else {
@@ -101,7 +90,7 @@ const calculateTotalCartPrice = () => {
 };
 
 onMounted(() => {
-  getTheCart();
+  store.dispatch("cart/getTheCart");
 });
 </script>
 

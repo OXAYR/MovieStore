@@ -11,14 +11,12 @@ const store = useStore();
 
 const allMovies = computed(() => store.getters["movies/getMovies"]);
 
-const fetchMovies = store.dispatch("movies/fetchMovies");
-const createCart = store.dispatch("cart/createCart");
-
 const addToCart = (movie) => {
-  createCart(movie);
+  console.log("Adding in the cart------------>", movie);
+  store.dispatch("cart/createCart", movie);
 };
 
 onMounted(() => {
-  fetchMovies;
+  store.dispatch("movies/fetchMovies");
 });
 </script>
