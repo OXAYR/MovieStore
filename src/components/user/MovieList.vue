@@ -24,8 +24,8 @@
           class="mt-4 sm:mt-7 flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <button
             @click="addTicket(item)"
-            class="border border-silver text-white hover:bg-silver hover:text-blue font-medium rounded p-2 m-2">
-            Buy Ticket
+            class="border bg-yellow text-white hover:bg-silver hover:text-blue font-medium rounded p-2 m-2">
+            Buy
           </button>
           <select
             v-model="ticketCount"

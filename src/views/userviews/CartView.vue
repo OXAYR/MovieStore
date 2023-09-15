@@ -2,13 +2,13 @@
   <div
     class="mx-4 sm:mx-8 md:mx-16 lg:mx-32 my-8 sm:my-16 md:my-32 text-silver">
     <h1 class="font-bold text-2xl sm:text-3xl text-left">
-      MY CART ({{ crt.length }})
+      MY CART ({{ cart.length }})
     </h1>
     <ul
-      v-if="crt.length"
+      v-if="cart.length"
       class="p-2 sm:p-4 mt-4 card divide-y divide-slate-300 text-left shadow-md bg-blue-100">
       <li
-        v-for="item in crt"
+        v-for="item in cart"
         :key="item.id"
         class="px-2 grid grid-cols-12 gap-2 sm:gap-4 text-blue">
         <div class="col-span-12 sm:col-span-8 lg:col-span-9">
@@ -44,7 +44,7 @@ import { onMounted, ref, computed } from "vue";
 
 const store = useStore();
 
-const crt = computed(() => store.getters["cart/getCart"]);
+const cart = computed(() => store.getters["cart/getCart"]);
 const price = ref(null);
 
 const incrementTicketCount = async (item, val) => {
@@ -83,10 +83,6 @@ const ticketPrice = (item) => {
 
 const calculateItemTotal = (item) => {
   return item.price * item.ticketCount;
-};
-
-const calculateTotalCartPrice = () => {
-  return crt.reduce((total, item) => total + calculateItemTotal(item), 0);
 };
 
 onMounted(() => {

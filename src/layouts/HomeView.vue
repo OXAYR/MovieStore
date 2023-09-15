@@ -10,10 +10,10 @@
 <script>
 // @ is an alias to /src
 
-import Nav from "@/layouts/Nav.vue";
+import Nav from "./Nav.vue";
 
 export default {
-  name: "HomeView",
+  name: "UserLayout",
   components: {
     Nav,
   },

@@ -10,7 +10,7 @@
         </div>
         <div class="flex">
           <router-link
-            to="home/userAccount"
+            to="/home/userAccount"
             class="text-silver shadow-sm hover:bg-blue hover:text-white rounded p-3 ml-4 mt-1">
             Account
           </router-link>

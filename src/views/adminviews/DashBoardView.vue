@@ -11,12 +11,12 @@
   <div class="flex flex-col lg:flex-row justify-between sm:items-start my-4">
     <CreateMovie class="mb-4 sm:mr-4" />
 
-    <div class="hidden md:block ml-80">
+    <div class="hidden md:block">
       <UserView class="mb-4" />
     </div>
   </div>
 
-  <div class="w-full overflow-x-auto">
+  <div>
     <AdminMovieListView />
   </div>
 </template>

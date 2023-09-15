@@ -65,7 +65,7 @@ export default {
           commit("SET_VALIDATION_ERRORS", null);
         }
       } catch (error) {
-        if (error.response.data.errors) {
+        if (error.response.status == 403) {
           commit("SET_VALIDATION_ERRORS", error.response.data.errors);
         }
         console.error("Error registering user:", error.response.data.errors);

@@ -31,7 +31,7 @@
         accept="image/*"
       /> -->
     </form>
-    <p v-if="validationErrors.length > 0" class="text-red text-sm">
+    <p v-if="validationErrors" class="text-red text-sm">
       {{ validationErrors }}
     </p>
     <button
@@ -66,7 +66,7 @@ const toStore = async () => {
     form.value.name !== "" &&
     form.value.confirmPassword !== ""
   ) {
-    console.log("In the component to store--->", form.value.profileImage);
+    console.log("In the component to store--->", form.value);
     await store.dispatch("user/registerUser", form.value);
     if (!validationErrors.value) router.push("/");
   }

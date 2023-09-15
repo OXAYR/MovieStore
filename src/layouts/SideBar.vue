@@ -3,8 +3,7 @@
     <div class="fixed top-4 left-4 z-50">
       <button
         @click="toggleSidebar"
-        class="block text-silver text-3xl cursor-pointer focus:outline-none md:hidden"
-      >
+        class="block text-silver text-3xl cursor-pointer focus:outline-none lg:hidden">
         &#9776;
       </button>
     </div>
@@ -12,10 +11,9 @@
     <div
       :class="{
         'translate-x-0': isSidebarOpen,
-        '-translate-x-full': !isSidebarOpen
+        '-translate-x-full': !isSidebarOpen,
       }"
-      class="fixed top-0 left-0 h-screen w-72 p-4 bg-bluenew transition-transform transform ease-in-out duration-300 md:translate-x-0"
-    >
+      class="fixed top-0 left-0 h-screen w-72 p-4 bg-bluenew transition-transform transform ease-in-out duration-300 lg:translate-x-0">
       <div class="mt-10">
         <router-link to="/" class="mb-4">
           <p class="font-semibold text-3xl text-silver">MovieMesh</p>

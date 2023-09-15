@@ -49,8 +49,8 @@ export default {
         console.log("Cart created:", data);
         alert(data.message);
       } catch (error) {
-        // console.error('Error creating cart:', error.response.data.message);
-        // alert(error.response.data.message)
+        //console.error("Error creating cart:", error.response.data.message);
+        alert(error.response.data.message);
       }
     },
 
@@ -101,8 +101,8 @@ export default {
         console.log("in the get cart----> ", data.data.cart.items);
         commit("SET_CART", data.data.cart.items);
       } catch (error) {
-        console.error("Error fetching movies:", error);
-        alert(error.response.data.message);
+        //console.error("Error fetching cart:", error);
+        //alert(error.response.data.message);
       }
     },
 
@@ -123,7 +123,7 @@ export default {
         commit("SET_CART", data.data.cart.items);
       } catch (error) {
         console.error("Error deleting item from cart:", error);
-        alert(error.response.data.message);
+        //alert(error.response.data.message);
       }
     },
   },
