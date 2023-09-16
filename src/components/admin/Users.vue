@@ -59,11 +59,11 @@ import { onMounted, ref, computed } from "vue";
 import { useRoute } from "vue-router";
 
 const store = useStore();
-const router = useRoute();
+const route = useRoute();
 const userBeingEdited = ref(null);
 const editedUserRole = ref(null);
 const isLoading = ref(false);
-const currentPath = ref(router.path);
+const currentPath = ref(route.path);
 
 console.log("current path------------------>", currentPath);
 const fetchUsers = async () => {

@@ -45,10 +45,11 @@ import { onMounted, ref, computed } from "vue";
 const store = useStore();
 
 const cart = computed(() => store.getters["cart/getCart"]);
+console.log("cart computed ---------->", cart.value)
 const price = ref(null);
 
 const incrementTicketCount = async (item, val) => {
-  if (item.ticketCount > 0 && item.ticketCount < 5) {
+  if (item.ticketCount > 0 && item.ticketCount <= 5) {
     item.ticketCount += val;
     console.log("IN the increment tickets----->", item, val);
     await store.dispatch("cart/updateTicket", item);

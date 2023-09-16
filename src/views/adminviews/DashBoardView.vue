@@ -21,16 +21,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import CreateMovie from "@/components/admin/CreateMovie.vue";
 import AdminMovieListView from "./AdminMovieListView.vue";
 import UserView from "./UserView.vue";
-export default {
-  name: "DashBoardView",
-  components: {
-    CreateMovie,
-    AdminMovieListView,
-    UserView,
-  },
-};
 </script>

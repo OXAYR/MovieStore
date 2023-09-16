@@ -27,6 +27,8 @@ export default {
     SET_USER(state, payload) {
       console.log("in the set user", payload);
       state.user = payload;
+      localStorage.setItem("user", JSON.stringify(payload.user));
+      localStorage.setItem("userAuth", JSON.stringify(payload.token));
     },
     DELETE_USER(state) {
       state.user = null;
