@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import AdminLayout from "../layouts/AdminView.vue";
+import AdminLayout from "../layouts/AdminLayout.vue";
 import LoginView from "../views/LoginView.vue";
 import SignUpView from "../views/SignUpView.vue";
 import DashBoardView from "../views/adminviews/DashBoardView.vue";
 import AdminMovieListView from "../views/adminviews/AdminMovieListView.vue";
-import UserLayout from "../layouts/HomeView.vue";
+import UserLayout from "../layouts/UserLayout.vue";
 import MovieListView from "../views/userviews/MovieListView.vue";
 import EditMovie from "../components/admin/EditMovie.vue";
 import UserAccount from "../components/user/UserAccount.vue";

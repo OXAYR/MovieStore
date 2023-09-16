@@ -8,7 +8,7 @@
 <script setup>
 import AdminMovieList from "@/components/admin/AdminMovieList.vue";
 import { useStore } from "vuex";
-import { onMounted, computed } from "vue";
+import { onMounted, computed, watchEffect } from "vue";
 
 const store = useStore();
 
@@ -18,6 +18,10 @@ const user = computed(() => store.getters["user/getUser"]);
 const deleteMovies = (index) => {
   store.dispatch("movies/deleteMovie", index);
 };
+
+watchEffect(() => {
+  console.log("in the watcheffect----->", allMovies.value);
+});
 
 onMounted(() => {
   store.dispatch("movies/fetchMovies");

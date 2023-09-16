@@ -65,7 +65,7 @@ const editedUserRole = ref(null);
 const isLoading = ref(false);
 const currentPath = ref(router.path);
 
-console.log(currentPath);
+console.log("current path------------------>", currentPath);
 const fetchUsers = async () => {
   try {
     isLoading.value = true;
